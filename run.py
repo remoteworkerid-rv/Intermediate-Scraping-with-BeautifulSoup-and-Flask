@@ -28,8 +28,6 @@ def get_urls():
     }
     res = session.get('http://0.0.0.0:9999', params=params)
 
-
-
     f = open('./res.html', 'w+')
     f.write(res.text)
     f.close()
