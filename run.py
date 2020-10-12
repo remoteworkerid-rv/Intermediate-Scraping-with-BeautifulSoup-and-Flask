@@ -1,6 +1,8 @@
+import glob
 import json
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 # pakai session karena adanya login
 session = requests.Session()
@@ -46,7 +48,7 @@ def get_detail(url):
     print('getting detail......{}'.format(url))
     res = session.get('http://0.0.0.0:9999'+url)
 
-    # sebagai result dari get_urls() page 1
+    # sebagai results dari get_urls() page 1
     f = open('./res.html', 'w+')
     f.write(res.text)
     f.close()
@@ -69,11 +71,25 @@ def get_detail(url):
     }
 
     #generate file JSON setiap produk kedalam folder
-    with open('./result/{}.json'.format(url.replace('/', '')), 'w') as outfile:
+    with open('./results/{}.json'.format(url.replace('/', '')), 'w') as outfile:
         json.dump(dict_data, outfile)
 
 
 def create_csv():
+    # fungsi glob untuk print file
+    files = sorted(glob.glob('./results/*.json'))
+
+    datas = []
+    for file in files:
+        with open(file) as json_file:
+            data = json.load(json_file)
+            datas.append(data)
+
+     #generate pakai pandas
+    df = pd.DataFrame(datas)
+    df.to_csv('results.csv', index=False)
+    # df.to_excel('results.xlsx', index=False)
+
     print('csv generated...')
 
 def run():
@@ -94,13 +110,15 @@ def run():
     #     json.dump(total_urls, outfile)
 
     # NOTE : ketika sudah mendapatkan urlsnya tinggal dibaca saja karena memakan waktu untuk kasus memiliki urls ribuan
-    # reading from JSON file
-    with open('all_urls.json') as json_file:
-        all_url = json.load(json_file)
 
-    # cara dibawah looping lama karena semua yang dilooping
-    for url in all_url:
-        get_detail(url)
+#BISA DIKOMENTARI KETIKA SUDAH MENDAPATKAN FILENYA
+    # reading from JSON file
+    # with open('all_urls.json') as json_file:
+    #     all_url = json.load(json_file)
+    #
+    # # cara dibawah looping lama karena semua yang dilooping
+    # for url in all_url:
+    #     get_detail(url)
 
     # get_detail('/takoyakids-lyla-racer-back-dress-terracota')
 
