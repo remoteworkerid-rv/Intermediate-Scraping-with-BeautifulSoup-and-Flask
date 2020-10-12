@@ -76,6 +76,7 @@ def run():
 
     # cara dibawah looping lama karena semua yang dilooping
     # for url in all_url:
+
     #     get_detail(url)
 
     get_detail()
