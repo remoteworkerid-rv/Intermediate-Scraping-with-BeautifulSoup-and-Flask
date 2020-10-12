@@ -93,36 +93,39 @@ def create_csv():
     print('csv generated...')
 
 def run():
-    # # login()
+
     total_pages = login()
 
-    # total_urls = []
-    # for i in range(total_pages):    # in range biasa mulai dari 0 makanya di +1
-    #     page = i + 1
-    #     urls = get_urls(page)
-    #     total_urls += urls   # total_urls = total_urls + urls
-    #
-    # # print(total_urls)
-    # # print(len(total_urls))
-    #
-    # # write JSON file
-    # with open('all_urls.json', 'w') as outfile:
-    #     json.dump(total_urls, outfile)
+    options = int(input('Input option number:\n1.Collecting all urls\n2.Get detail all product\n3.Create csv :\n '))
+    if options == 1:
+        total_urls = []
+        for i in range(total_pages):    # in range biasa mulai dari 0 makanya di +1
+            page = i + 1
+            urls = get_urls(page)
+            total_urls += urls   # total_urls = total_urls + urls
+
+        # print(total_urls)
+        # print(len(total_urls))
+
+        # write JSON file
+        with open('all_urls.json', 'w') as outfile:
+            json.dump(total_urls, outfile)
 
     # NOTE : ketika sudah mendapatkan urlsnya tinggal dibaca saja karena memakan waktu untuk kasus memiliki urls ribuan
 
-#BISA DIKOMENTARI KETIKA SUDAH MENDAPATKAN FILENYA
-    # reading from JSON file
-    # with open('all_urls.json') as json_file:
-    #     all_url = json.load(json_file)
-    #
-    # # cara dibawah looping lama karena semua yang dilooping
-    # for url in all_url:
-    #     get_detail(url)
+    # BISA DIKOMENTARI KETIKA SUDAH MENDAPATKAN FILENYA
+    if options == 2:
+        # reading from JSON file
+        with open('all_urls.json') as json_file:
+            all_url = json.load(json_file)
 
-    # get_detail('/takoyakids-lyla-racer-back-dress-terracota')
+        # cara dibawah looping lama karena semua yang dilooping
+        for url in all_url:
+            get_detail(url)
 
-    create_csv()
+        # get_detail('/takoyakids-lyla-racer-back-dress-terracota')
+    if options == 2:
+        create_csv()
 
 if __name__ == '__main__':
     run()
