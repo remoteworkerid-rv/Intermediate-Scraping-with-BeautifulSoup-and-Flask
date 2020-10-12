@@ -46,29 +46,40 @@ def get_urls(page):
     # f.write(res.text)
     # f.close()
 
-def get_detail():
+def get_detail(url):
     print('getting detail......')
 
 def create_csv():
     print('csv generated...')
 
 def run():
-    # login()
+    # # login()
     total_pages = login()
-    total_urls = []
-    for i in range(total_pages):    # in range biasa mulai dari 0 makanya di +1
-        page = i + 1
-        urls = get_urls(page)
-        total_urls += urls   # total_urls = total_urls + urls
 
-    # print(total_urls)
-    # print(len(total_urls))
+    # total_urls = []
+    # for i in range(total_pages):    # in range biasa mulai dari 0 makanya di +1
+    #     page = i + 1
+    #     urls = get_urls(page)
+    #     total_urls += urls   # total_urls = total_urls + urls
+    #
+    # # print(total_urls)
+    # # print(len(total_urls))
+    #
+    # # write JSON file
+    # with open('all_urls.json', 'w') as outfile:
+    #     json.dump(total_urls, outfile)
 
-    # write JSON file
-    with open('all_urls.json', 'w') as outfile:
-        json.dump(total_urls, outfile)
+    # NOTE : ketika sudah mendapatkan urlsnya tinggal dibaca saja karena memakan waktu untuk kasus memiliki urls ribuan
+    # reading from JSON file
+    with open('all_urls.json') as json_file:
+        all_url = json.load(json_file)
+
+    # cara dibawah looping lama karena semua yang dilooping
+    # for url in all_url:
+    #     get_detail(url)
 
     get_detail()
+
     create_csv()
 
 if __name__ == '__main__':
