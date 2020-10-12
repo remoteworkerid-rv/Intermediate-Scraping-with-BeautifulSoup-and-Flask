@@ -43,7 +43,7 @@ def get_urls(page):
 
 
 def get_detail(url):
-    print('getting detail......')
+    print('getting detail......{}'.format(url))
     res = session.get('http://0.0.0.0:9999'+url)
 
     # sebagai result dari get_urls() page 1
@@ -68,7 +68,7 @@ def get_detail(url):
         'description': description,
     }
 
-    #generate file JSON setiap produk
+    #generate file JSON setiap produk kedalam folder
     with open('./result/{}.json'.format(url.replace('/', '')), 'w') as outfile:
         json.dump(dict_data, outfile)
 
@@ -99,11 +99,10 @@ def run():
         all_url = json.load(json_file)
 
     # cara dibawah looping lama karena semua yang dilooping
-    # for url in all_url:
+    for url in all_url:
+        get_detail(url)
 
-    #     get_detail(url)
-
-    get_detail('/takoyakids-lyla-racer-back-dress-terracota')
+    # get_detail('/takoyakids-lyla-racer-back-dress-terracota')
 
     create_csv()
 
