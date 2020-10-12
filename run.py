@@ -67,7 +67,10 @@ def get_detail(url):
         'category': category,
         'description': description,
     }
-    print(dict_data)
+
+    #generate file JSON setiap produk
+    with open('./result/{}.json'.format(url.replace('/', '')), 'w') as outfile:
+        json.dump(dict_data, outfile)
 
 
 def create_csv():
