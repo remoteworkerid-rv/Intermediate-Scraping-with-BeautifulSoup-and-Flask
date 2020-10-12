@@ -41,13 +41,14 @@ def get_urls(page):
 
     return urls
 
-    # sebagai result dari get_urls() page 1
-    # f = open('./res.html', 'w+')
-    # f.write(res.text)
-    # f.close()
 
 def get_detail(url):
     print('getting detail......')
+    res = session.get('http://0.0.0.0:9999'+url)
+    # sebagai result dari get_urls() page 1
+    f = open('./res.html', 'w+')
+    f.write(res.text)
+    f.close()
 
 def create_csv():
     print('csv generated...')
@@ -79,7 +80,7 @@ def run():
 
     #     get_detail(url)
 
-    get_detail()
+    get_detail('/takoyakids-lyla-racer-back-dress-terracota')
 
     create_csv()
 
