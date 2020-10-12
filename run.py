@@ -45,10 +45,30 @@ def get_urls(page):
 def get_detail(url):
     print('getting detail......')
     res = session.get('http://0.0.0.0:9999'+url)
+
     # sebagai result dari get_urls() page 1
     f = open('./res.html', 'w+')
     f.write(res.text)
     f.close()
+
+    # Metode Python Strip () digunakan untuk menghapus kepala dan ekor string karakter yang ditentukan (default adalah spasi).
+    # Metode replace () mengembalikan salinan string di mana semua kemunculan substring diganti dengan substring lain.
+    soup = BeautifulSoup(res.text, 'html5lib')
+    title = soup.find('title').text.strip()
+    price = soup.find('h4', attrs={'class': 'card-price'}).text.strip()
+    stock= soup.find('span', attrs={'class': 'card-stock'}).text.strip().replace('stock: ', '')
+    category = soup.find('span', attrs={'class': 'card-category'}).text.strip().replace('category: ', '')
+    description = soup.find('p', attrs={'class': 'card-text'}).text.strip().replace('Description: ', '')
+
+    dict_data = {
+        'title': title,
+        'price': price,
+        'stock': stock,
+        'category': category,
+        'description': description,
+    }
+    print(dict_data)
+
 
 def create_csv():
     print('csv generated...')
